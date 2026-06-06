@@ -1,8 +1,3 @@
-// ============================================================
-// data.js — Semua data konten NusaExplore
-// ============================================================
-
-// ── Theme & LocalStorage utils ───────────────────────────────
 const STORAGE_KEY = 'nusaexplore_user_data';
 const THEME_KEY   = 'nusaexplore_theme';
 
@@ -67,7 +62,6 @@ function saveQuizScore(regionId, score) {
 }
 function resetUserData() { saveUserData(DEFAULT_USER_DATA); }
 
-// ── Difficulty Config ────────────────────────────────────────
 const DIFFICULTY_CONFIG = {
   mudah:  { unlockCost: 1, keyReward: 2, label: 'Mudah',  color: '#40916C' },
   sedang: { unlockCost: 2, keyReward: 3, label: 'Sedang', color: '#C9A84C' },
@@ -92,7 +86,6 @@ function getDifficultyInfo(regionId) {
   return { difficulty: diff, ...DIFFICULTY_CONFIG[diff] };
 }
 
-// ── Region Data (island groups) ──────────────────────────────
 const regionData = {
   sumatera: {
     province: '10 Provinsi · Pulau Terbesar ke-6 Dunia', name: 'Sumatera', emoji: '🌋',
@@ -161,7 +154,6 @@ const regionToIslandMap = {
   'papua-tengah':'papua','papua-selatan':'papua','papua-pegunungan':'papua'
 };
 
-// ── Culture Grid Data ────────────────────────────────────────
 const culturesData = [
   {
     id:1, tag:'Seni Tekstil · UNESCO 2009', title:'Batik', titleFull:'Batik — Lukisan Jiwa Nusantara',
@@ -205,7 +197,6 @@ const culturesData = [
   },
 ];
 
-// ── Quiz Data ────────────────────────────────────────────────
 const quizData = [
   {province:'general',q:'Batik Indonesia diakui sebagai warisan budaya oleh organisasi internasional mana?',opts:['UNESCO','UNICEF','WHO','WTO'],ans:0},
   {province:'general',q:'Candi Borobudur adalah candi agama apa dan terletak di provinsi mana?',opts:['Hindu - Jawa Timur','Buddha - Jawa Tengah','Hindu - Yogyakarta','Islam - Jawa Barat'],ans:1},
@@ -285,8 +276,6 @@ function shuffle(arr) {
   return a;
 }
 
-// ── Province Detail Data ─────────────────────────────────────
-// (subset for performance — full data in provinceDetailData.js)
 const provinceDetailData = [
   {
     slug:'aceh', name:'Aceh', region:'Sumatera',
@@ -543,7 +532,6 @@ const provinceDetailData = [
   },
 ];
 
-// ── Puzzle Province Images ───────────────────────────────────
 const PROVINCE_PUZZLES = {
   'aceh': ['/images/provinces/aceh-hero.jpg','/images/culture/Aceh/aceh-1.jpg','/images/culture/Aceh/aceh-2.jpg'],
   'sumatera-utara': ['/images/provinces/sumut-hero.jpg','/images/culture/Sumatra_Utara/sumut-1.jpg','/images/culture/Sumatra_Utara/sumut-2.jpg'],
