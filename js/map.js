@@ -1,5 +1,17 @@
 var mapState = { selectedId: null, isSelected: false };
 
+function _resetMapState() {
+  if (mapState.selectedId) {
+    var el = document.getElementById('path-' + mapState.selectedId);
+    if (el) el.style.fill = '';
+  }
+  mapState.selectedId = null;
+  mapState.isSelected = false;
+  document.body.style.overflow = '';
+  var overlay = document.getElementById('region-popup-overlay');
+  if (overlay) overlay.style.display = 'none';
+}
+
 function renderMap() {
   document.title = 'Peta Interaktif — NusaExplore';
 
@@ -37,7 +49,7 @@ function renderMap() {
   );
 
   initNavbar();
-  mapState = { selectedId: null, isSelected: false };
+  _resetMapState();
 
   setTimeout(function() {
     document.getElementById('map-loading').style.display = 'none';
@@ -133,7 +145,10 @@ function showRegionPopup(id, name) {
     '</div>';
   }
 
-  document.getElementById('region-popup-inner').innerHTML =
+  var inner = document.getElementById('region-popup-inner');
+  if (!inner) return;
+
+  inner.innerHTML =
     '<button class="popup-close-btn" onclick="closeMapPopup()" style="display:flex;align-items:center;justify-content:center">' +
       '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
     '</button>' +
@@ -146,21 +161,16 @@ function showRegionPopup(id, name) {
       '<button class="popup-btn-secondary" onclick="closeMapPopup()">Tutup</button>' +
     '</div>';
 
-  document.getElementById('region-popup-overlay').style.display = 'flex';
+  var overlay = document.getElementById('region-popup-overlay');
+  if (!overlay) return;
+  overlay.style.display = 'flex';
   document.body.style.overflow = 'hidden';
 }
 
 function closeMapPopup() {
-  document.getElementById('region-popup-overlay').style.display = 'none';
-  document.body.style.overflow = '';
-  if (mapState.selectedId) {
-    var el = document.getElementById('path-' + mapState.selectedId);
-    if (el) el.style.fill = '';
-  }
-  mapState.selectedId = null;
-  mapState.isSelected = false;
+  _resetMapState();
 }
 
 function closeMapPopupOverlay(e) {
-  if (e.target && e.target.id === 'region-popup-overlay') closeMapPopup();
+  if (e.target && e.target.id === 'region-popup-overlay') _resetMapState();
 }
