@@ -348,18 +348,14 @@ footer { padding:32px 48px; border-top:1px solid var(--border); display:flex; al
 .map-loading-text { font-size:16px; color:var(--text2); }
 .map-hero { position:relative; min-height:100vh; display:flex; flex-direction:column; padding:80px 0 0; overflow:hidden; }
 [data-theme="dark"] .map-hero { background:radial-gradient(ellipse at 60% 30%,rgba(45,106,79,.12) 0%,transparent 50%); }
-.map-hero-header { padding:24px 40px 0; }
-.map-info-title { font-size:clamp(28px,4vw,42px); font-weight:800; color:var(--text); }
+.map-hero-header { padding:20px 40px 0; }
+.map-header-top { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:14px; }
+.map-header-left { display:flex; flex-direction:column; gap:6px; }
+.map-header-right { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.map-info-title { font-size:clamp(24px,3.5vw,38px); font-weight:800; color:var(--text); margin:0; }
 .map-info-title em { font-style:italic; color:var(--gold); }
-.map-back-btn {
-  position:absolute; top:20px; right:24px;
-  background:var(--bg3); border:1px solid var(--border); color:var(--text);
-  padding:8px 18px; border-radius:8px; font-size:13px; font-weight:600;
-  cursor:pointer; font-family:'Plus Jakarta Sans',sans-serif; transition:all .2s;
-}
-.map-back-btn:hover { border-color:var(--gold); color:var(--gold); }
-.map-hero-inner { flex:1; display:flex; align-items:center; justify-content:center; padding:16px; }
-.map-container { width:100%; max-width:960px; }
+.map-hero-inner { flex:1; display:flex; align-items:stretch; justify-content:center; padding:12px 16px 24px; }
+.map-container { width:100%; max-width:100%; }
 .map-svg { width:100%; height:auto; display:block; }
 
 .province-path { fill:#1C2E20; stroke:rgba(201,168,76,.3); stroke-width:.5; cursor:pointer; transition:fill .2s; }
@@ -528,7 +524,9 @@ footer { padding:32px 48px; border-top:1px solid var(--border); display:flex; al
   .media-grid { grid-template-columns:1fr; }
   .detail-hero { min-height:50vh; padding:20px; }
   .cta-btn-row { flex-direction:column; align-items:center; }
-  .map-hero-header { padding:16px 20px 0; }
+  .map-hero-header { padding:12px 16px 0; }
+  .map-header-top { flex-direction:column; align-items:flex-start; gap:10px; }
+  .map-header-right { width:100%; justify-content:flex-start; }
 }
 @media (max-width:640px) {
   .culture-grid { grid-template-columns:1fr; }
