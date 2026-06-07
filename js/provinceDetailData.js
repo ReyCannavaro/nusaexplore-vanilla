@@ -1,4 +1,4 @@
-export const provinceDetailData = [
+var provinceDetailData = [
   {
     slug: 'aceh',
     name: 'Aceh',

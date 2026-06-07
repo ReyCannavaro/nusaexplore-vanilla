@@ -1,4 +1,4 @@
-export const quizData = [
+var quizData = [
   { province: 'general', q: 'Batik Indonesia diakui sebagai warisan budaya oleh organisasi internasional mana?', opts: ['UNESCO', 'UNICEF', 'WHO', 'WTO'], ans: 0 },
   { province: 'general', q: 'Candi Borobudur adalah candi agama apa dan terletak di provinsi mana?', opts: ['Hindu - Jawa Timur', 'Buddha - Jawa Tengah', 'Hindu - Yogyakarta', 'Islam - Jawa Barat'], ans: 1 },
   { province: 'general', q: 'Perahu Pinisi adalah keahlian pelaut tradisional dari suku mana?', opts: ['Dayak', 'Batak', 'Bugis-Makassar', 'Toraja'], ans: 2 },
@@ -70,13 +70,3 @@ export const quizData = [
   { province: 'maluku', q: 'Makanan pokok berupa bubur sagu bening khas Maluku disebut?', opts: ['Sagu Lempeng', 'Papeda', 'Sinonggi', 'Kasuami'], ans: 1 },
   { province: 'maluku', q: 'Pantai yang dijuluki "Maladewa-nya Indonesia" di Maluku adalah?', opts: ['Pantai Natsepa', 'Pantai Ora', 'Pantai Ngurbloat', 'Pantai Namalatu'], ans: 1 },
 ];
-
-export const getQuizForProvince = (provinceSlug) => {
-  const provinceQs = quizData.filter(q => q.province === provinceSlug);
-  const generalQs = quizData.filter(q => q.province === 'general');
-  
-  if (provinceQs.length >= 5) return provinceQs.slice(0, 5);
-  
-  const needed = 5 - provinceQs.length;
-  return [...provinceQs, ...generalQs.slice(0, needed)];
-};
