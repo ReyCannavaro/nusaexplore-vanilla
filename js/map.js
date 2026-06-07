@@ -30,7 +30,7 @@ function _resetMapState() {
   document.body.style.overflow = '';
 
   var overlay = document.getElementById('region-popup-overlay');
-  if (overlay) overlay.style.display = 'none';
+  if (overlay) overlay.classList.remove('active');
 
   var unlockOverlay = document.getElementById('unlock-overlay');
   if (unlockOverlay) unlockOverlay.style.display = 'none';
@@ -68,51 +68,57 @@ function renderMap() {
       '<div id="map-content" class="map-hero" style="display:none">' +
 
         '<div class="map-hero-header">' +
-          '<div class="section-label">MAP GAME</div>' +
-          '<h2 class="map-info-title">Jelajahi <em>Indonesia</em></h2>' +
 
-          '<div style="display:flex;align-items:center;gap:16px;margin-top:12px;flex-wrap:wrap">' +
+          '<div class="map-header-top">' +
 
-            '<div style="display:flex;flex-direction:column;gap:4px">' +
-              '<div style="display:flex;align-items:center;gap:8px">' +
-                '<span style="font-size:22px;font-weight:800;color:var(--gold);font-family:\'Playfair Display\',serif">' + unlockedCount + '</span>' +
-                '<span style="font-size:13px;color:var(--text2)">/ ' + totalCount + ' Provinsi</span>' +
-              '</div>' +
-              '<div style="width:160px;height:5px;background:var(--bg3);border-radius:10px;overflow:hidden">' +
-                '<div id="map-prog-bar" style="height:100%;width:' + pct + '%;background:linear-gradient(90deg,#40916C,var(--gold));border-radius:10px;transition:width .6s"></div>' +
-              '</div>' +
+            '<div class="map-header-left">' +
+              '<div class="section-label">MAP GAME</div>' +
+              '<h2 class="map-info-title">Jelajahi <em>Indonesia</em></h2>' +
             '</div>' +
 
-            '<div style="width:1px;height:36px;background:var(--border)"></div>' +
+            '<div class="map-header-right">' +
 
-            '<div id="map-key-counter" style="display:inline-flex;align-items:center;gap:8px;' +
-              'background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:8px 16px">' +
-              _keyIconSVG(18) +
-              '<span id="map-key-val" style="font-size:15px;font-weight:700;color:var(--text)">' + ud.keys + '</span>' +
-              '<span style="font-size:12px;color:var(--text2)">Kunci</span>' +
+              '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">' +
+                '<div style="display:flex;align-items:center;gap:6px">' +
+                  '<span style="font-size:20px;font-weight:800;color:var(--gold);font-family:\'Playfair Display\',serif">' + unlockedCount + '</span>' +
+                  '<span style="font-size:12px;color:var(--text2)">/ ' + totalCount + ' Provinsi</span>' +
+                '</div>' +
+                '<div style="width:140px;height:5px;background:var(--bg3);border-radius:10px;overflow:hidden">' +
+                  '<div id="map-prog-bar" style="height:100%;width:' + pct + '%;background:linear-gradient(90deg,#40916C,var(--gold));border-radius:10px;transition:width .6s"></div>' +
+                '</div>' +
+              '</div>' +
+
+              '<div style="width:1px;height:32px;background:var(--border)"></div>' +
+
+              '<div id="map-key-counter" style="display:inline-flex;align-items:center;gap:8px;' +
+                'background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:8px 16px">' +
+                _keyIconSVG(16) +
+                '<span id="map-key-val" style="font-size:14px;font-weight:700;color:var(--text)">' + ud.keys + '</span>' +
+                '<span style="font-size:12px;color:var(--text2)">Kunci</span>' +
+              '</div>' +
+
+              '<div style="width:1px;height:32px;background:var(--border)"></div>' +
+
+              '<button onclick="toggleHowToPlay()" style="display:inline-flex;align-items:center;gap:6px;' +
+                'background:var(--bg2);border:1px solid var(--border);color:var(--text);' +
+                'padding:8px 16px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;' +
+                'font-family:Plus Jakarta Sans,sans-serif;white-space:nowrap;transition:border-color .2s,color .2s"' +
+                'onmouseenter="this.style.borderColor=\'var(--gold)\';this.style.color=\'var(--gold)\'"' +
+                'onmouseleave="this.style.borderColor=\'var(--border)\';this.style.color=\'var(--text)\'">' +
+                '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Cara Bermain' +
+              '</button>' +
+
             '</div>' +
 
           '</div>' +
 
-          '<div style="display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap">' +
+          '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">' +
             '<span style="font-size:11px;color:var(--text3)">Level:</span>' +
             '<span style="font-size:11px;font-weight:700;color:#40916C;background:rgba(64,145,108,.12);padding:3px 10px;border-radius:20px">Mudah — 1🗝</span>' +
             '<span style="font-size:11px;font-weight:700;color:#C9A84C;background:rgba(201,168,76,.12);padding:3px 10px;border-radius:20px">Sedang — 2🗝</span>' +
             '<span style="font-size:11px;font-weight:700;color:#e74c3c;background:rgba(231,76,60,.12);padding:3px 10px;border-radius:20px">Susah — 3🗝</span>' +
           '</div>' +
 
-        '</div>' +
-
-        '<div style="display:flex;gap:10px;margin-bottom:4px;flex-wrap:wrap">' +
-          '<button class="map-back-btn" onclick="navigate(\'/\')" style="display:inline-flex;align-items:center;gap:6px">' +
-            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Kembali' +
-          '</button>' +
-          '<button onclick="toggleHowToPlay()" style="display:inline-flex;align-items:center;gap:6px;' +
-            'background:var(--bg2);border:1px solid var(--border);color:var(--text);' +
-            'padding:8px 16px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;' +
-            'font-family:Plus Jakarta Sans,sans-serif">' +
-            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Cara Bermain' +
-          '</button>' +
         '</div>' +
 
         '<div class="map-hero-inner">' +
@@ -178,7 +184,7 @@ function renderMap() {
           'onclick="event.stopPropagation()"></div>' +
       '</div>' +
 
-      '<div id="region-popup-overlay" style="display:none" class="region-popup-overlay" onclick="closeMapPopupOverlay(event)">' +
+      '<div id="region-popup-overlay" class="region-popup-overlay" onclick="closeMapPopupOverlay(event)">' +
         '<div class="region-popup" id="region-popup-inner"></div>' +
       '</div>' +
 
@@ -611,7 +617,7 @@ function showRegionPopup(id, name) {
 
   var overlay = document.getElementById('region-popup-overlay');
   if (!overlay) return;
-  overlay.style.display = 'flex';
+  overlay.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
 

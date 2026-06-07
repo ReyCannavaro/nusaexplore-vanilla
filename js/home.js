@@ -108,7 +108,7 @@ function renderHome() {
 
     footerHTML() +
 
-    '<div id="culture-modal-overlay" style="display:none" class="culture-modal-overlay" onclick="closeCultureModalOverlay(event)">' +
+    '<div id="culture-modal-overlay" class="culture-modal-overlay" onclick="closeCultureModalOverlay(event)">' +
       '<div class="culture-modal" id="culture-modal-inner" onclick="event.stopPropagation()"></div>' +
     '</div>'
   );
@@ -172,12 +172,12 @@ function openCultureModal(id) {
     '</div>';
 
   var overlay = document.getElementById('culture-modal-overlay');
-  overlay.style.display = 'flex';
+  overlay.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
 
 function closeCultureModal() {
-  document.getElementById('culture-modal-overlay').style.display = 'none';
+  document.getElementById('culture-modal-overlay').classList.remove('active');
   document.body.style.overflow = '';
 }
 
