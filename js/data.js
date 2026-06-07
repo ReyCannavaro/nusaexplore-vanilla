@@ -1,9 +1,15 @@
 var STORAGE_KEY = 'nusaexplore_user_data';
 var THEME_KEY   = 'nusaexplore_theme';
+
 var DEFAULT_DATA = {
-  keys: 1, unlockedRegions: [], completedGames: {},
-  claimedRewards: [], quizScores: {}, puzzleScores: {},
-  totalScore: 0, gamesPlayed: 0,
+  keys: 3,
+  unlockedRegions: [],
+  completedGames: {},
+  claimedRewards: [],
+  quizScores: {},
+  puzzleScores: {},
+  totalScore: 0,
+  gamesPlayed: 0,
 };
 
 function getUserData() {
@@ -24,12 +30,17 @@ function markGameCompleted(provinceId, gameType) {
   d.gamesPlayed = (d.gamesPlayed || 0) + 1;
   saveUserData(d);
 }
+
 function canClaimReward(provinceId) {
-  var d = getUserData();
-  var done = d.completedGames[provinceId] && d.completedGames[provinceId].length > 0;
+  var d      = getUserData();
+  var done   = d.completedGames[provinceId] || [];
+  var quizOk = done.indexOf('quiz')   !== -1;
+  var puzzOk = done.indexOf('puzzle') !== -1;
+  var both   = quizOk && puzzOk;
   var claimed = d.claimedRewards && d.claimedRewards.indexOf(provinceId) !== -1;
-  return done && !claimed;
+  return both && !claimed;
 }
+
 function hasClaimedReward(provinceId) {
   var d = getUserData(); return d.claimedRewards && d.claimedRewards.indexOf(provinceId) !== -1;
 }
