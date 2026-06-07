@@ -1,9 +1,13 @@
 function renderProvince(slug) {
+  document.body.style.overflow = '';
+
   document.title = 'Memuat... — NusaExplore';
   setPage(navbarHTML('') + '<div class="map-loading"><div class="map-loading-spinner"></div><p class="map-loading-text">Memuat Data Provinsi...</p></div>');
   initNavbar();
 
   setTimeout(function() {
+    document.body.style.overflow = '';
+
     var province = null;
     for (var i = 0; i < provinceDetailData.length; i++) {
       if (provinceDetailData[i].slug === slug) { province = provinceDetailData[i]; break; }
@@ -27,10 +31,10 @@ function renderProvince(slug) {
     var iconLang   = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
 
     var quickInfo = '<div class="quick-info-grid">' +
-      qCard(iconHome,   'Ibu Kota',       province.capital) +
-      qCard(iconPeople, 'Populasi',        province.population) +
-      qCard(iconArea,   'Luas Wilayah',    province.area) +
-      qCard(iconLang,   'Bahasa Daerah',   province.language) +
+      qCard(iconHome,   'Ibu Kota',     province.capital) +
+      qCard(iconPeople, 'Populasi',     province.population) +
+      qCard(iconArea,   'Luas Wilayah', province.area) +
+      qCard(iconLang,   'Bahasa Daerah',province.language) +
     '</div>';
 
     function mediaSection(sectionLabel, heading, items, getImg, getTitle, getDesc) {
@@ -51,9 +55,9 @@ function renderProvince(slug) {
       '</div>';
     }
 
-    var cultureSection  = mediaSection('Budaya &amp; Tradisi', 'Warisan Budaya',    province.culture,  function(c){return c.image;}, function(c){return c.title;},  function(c){return c.description;});
-    var tourismSection  = mediaSection('Wisata',               'Destinasi Unggulan',province.tourism,  function(t){return t.image;}, function(t){return t.name;},   function(t){return '&#x1F4CD; '+t.location+' &mdash; '+t.description;});
-    var culinarySection = mediaSection('Kuliner',              'Cita Rasa Khas',    province.culinary, function(c){return c.image;}, function(c){return c.name;},   function(c){return c.description;});
+    var cultureSection  = mediaSection('Budaya &amp; Tradisi', 'Warisan Budaya',     province.culture,  function(c){return c.image;}, function(c){return c.title;},  function(c){return c.description;});
+    var tourismSection  = mediaSection('Wisata',               'Destinasi Unggulan', province.tourism,  function(t){return t.image;}, function(t){return t.name;},   function(t){return '&#x1F4CD; '+t.location+' &mdash; '+t.description;});
+    var culinarySection = mediaSection('Kuliner',              'Cita Rasa Khas',     province.culinary, function(c){return c.image;}, function(c){return c.name;},   function(c){return c.description;});
 
     var factsHTML = '';
     if (province.facts && province.facts.length) {
@@ -131,6 +135,8 @@ function renderProvince(slug) {
       '</div>' +
       footerHTML()
     );
+
+    document.body.style.overflow = '';
 
     initNavbar();
     setTimeout(initReveal, 100);
