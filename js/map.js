@@ -60,12 +60,7 @@ function renderMap() {
     navbarHTML('/map') +
     '<div style="background:var(--bg);min-height:100vh">' +
 
-      '<div id="map-loading" class="map-loading">' +
-        '<div class="map-loading-spinner"></div>' +
-        '<p class="map-loading-text">Memuat Peta Jelajah...</p>' +
-      '</div>' +
-
-      '<div id="map-content" class="map-hero" style="display:none">' +
+      '<div id="map-content" class="map-hero">' +
 
         '<div class="map-hero-header">' +
 
@@ -195,12 +190,10 @@ function renderMap() {
   initNavbar();
   _resetMapState();
 
-  setTimeout(function() {
-    document.getElementById('map-loading').style.display = 'none';
-    document.getElementById('map-content').style.display = 'flex';
+  requestAnimationFrame(function() {
     initMapEvents();
     _renderLockIcons();
-  }, 900);
+  });
 }
 
 function _howStep(num, iconSVG, title, desc) {
