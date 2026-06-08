@@ -124,7 +124,7 @@ function renderMap() {
         '<div class="map-hero-inner">' +
           '<div class="map-container" style="position:relative">' +
 
-            '<svg id="indonesia-map" class="map-svg" viewBox="-10 0 807 340" xmlns="http://www.w3.org/2000/svg">' +
+            '<svg id="indonesia-map" class="map-svg" viewBox="-10 0 807 340" xmlns="http://www.w3.org/2000/svg" style="pointer-events:all">' +
               svgPaths +
             '</svg>' +
 
@@ -306,11 +306,11 @@ function initMapEvents() {
   if (!svg) return;
 
   svg.querySelectorAll('.province-path').forEach(function(path) {
-    var id       = path.dataset.id;
-    var unlocked = isProvinceUnlocked(id);
+    var id = path.dataset.id;
 
     path.addEventListener('mouseenter', function() {
       if (mapState.isSelected) return;
+      var unlocked = isProvinceUnlocked(id);
       path.style.fill = unlocked ? '#40916C' : getDifficultyInfo(id).color + '88';
       _showMapTooltip(path.dataset.name, id, unlocked);
     });
@@ -321,10 +321,12 @@ function initMapEvents() {
       _hideMapTooltip();
     });
 
-    path.addEventListener('click', function() {
+    path.addEventListener('click', function(e) {
+      e.stopPropagation();
       if (mapState.isSelected) return;
       _hideMapTooltip();
 
+      var unlocked = isProvinceUnlocked(id);
       if (unlocked) {
         mapState.selectedId = id;
         mapState.isSelected = true;
@@ -454,8 +456,10 @@ function showUnlockPopup(id, name) {
     '</div>';
 
   overlay.style.display = 'flex';
+  overlay.style.alignItems = 'center';
+  overlay.style.justifyContent = 'center';
   document.body.style.overflow = 'hidden';
-  popup.style.position = 'relative'; /* needed for absolute close btn */
+  popup.style.position = 'relative';
 }
 
 function confirmUnlock(id, name) {
@@ -501,7 +505,8 @@ function confirmUnlock(id, name) {
 }
 
 function closeUnlockOverlay(e) {
-  if (e && e.target && e.target.id !== 'unlock-overlay') return;
+  /* Kalau dipanggil dari onclick overlay background, cek target */
+  if (e && e.type === 'click' && e.target && e.target.id !== 'unlock-overlay') return;
   var overlay = document.getElementById('unlock-overlay');
   if (overlay) overlay.style.display = 'none';
   document.body.style.overflow = '';
