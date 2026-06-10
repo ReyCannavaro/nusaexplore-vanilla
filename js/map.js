@@ -1,7 +1,4 @@
-/* ─── STATE ───────────────────────────────────────────────────── */
 var mapState = { selectedId:null, isSelected:false, showingHow:false };
-
-/* ─── HELPERS ─────────────────────────────────────────────────── */
 function isProvinceUnlocked(id) {
   var ud = getUserData();
   return !!(ud.unlockedRegions && ud.unlockedRegions.indexOf(id) !== -1);
@@ -32,7 +29,6 @@ function _resetMapState() {
   if (ul) ul.style.display = 'none';
 }
 
-/* ─── SVG ICONS ───────────────────────────────────────────────── */
 function _lockSVG(sz) {
   return '<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
 }
@@ -40,7 +36,6 @@ function _keySVG(sz) {
   return '<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>';
 }
 
-/* ─── INJECT STYLES (once) ────────────────────────────────────── */
 (function() {
   if (document.getElementById('map-lock-styles')) return;
   var s = document.createElement('style');
@@ -50,7 +45,6 @@ function _keySVG(sz) {
     '.province-locked:hover{opacity:1}',
     '.province-unlocked{fill:var(--bg3,#1e2030);cursor:pointer;transition:fill .2s}',
     '.province-unlocked:hover{fill:#40916C!important}',
-    /* unlock burst animation */
     '@keyframes unlockBurst{0%{transform:scale(1);filter:brightness(1)}30%{transform:scale(1.18);filter:brightness(1.6)}60%{transform:scale(0.95);filter:brightness(1.2)}100%{transform:scale(1);filter:brightness(1)}}',
     '@keyframes unlockRipple{0%{r:0;opacity:.7}100%{r:40;opacity:0}}',
     '@keyframes unlockShine{0%,100%{opacity:0}40%{opacity:.55}}',
@@ -60,7 +54,6 @@ function _keySVG(sz) {
   document.head.appendChild(s);
 })();
 
-/* ─── RENDER MAP ──────────────────────────────────────────────── */
 function renderMap() {
   document.title = 'Peta Jelajah — NusaExplore';
   var ud = getUserData();
@@ -129,7 +122,6 @@ function renderMap() {
 
       '</div>'+
 
-      /* How To Play panel */
       '<div id="how-to-play-panel" style="display:none;position:fixed;top:0;right:0;height:100vh;width:min(340px,90vw);background:var(--bg2);border-left:1px solid var(--border);z-index:350;overflow-y:auto;box-shadow:-8px 0 40px rgba(0,0,0,.4);padding:28px 24px">'+
         '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">'+
           '<div>'+
@@ -160,12 +152,10 @@ function renderMap() {
         '</div>'+
       '</div>'+
 
-      /* Unlock overlay */
       '<div id="unlock-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:300;align-items:center;justify-content:center;padding:20px" onclick="closeUnlockOverlay(event)">'+
         '<div id="unlock-popup" style="background:var(--bg2);border:1px solid var(--border);border-radius:20px;max-width:400px;width:100%;padding:28px;box-shadow:0 24px 60px rgba(0,0,0,.5)" onclick="event.stopPropagation()"></div>'+
       '</div>'+
 
-      /* Region popup */
       '<div id="region-popup-overlay" class="region-popup-overlay" onclick="closeMapPopupOverlay(event)">'+
         '<div class="region-popup" id="region-popup-inner"></div>'+
       '</div>'+
@@ -179,10 +169,12 @@ function renderMap() {
   requestAnimationFrame(function() {
     initMapEvents();
     _renderLockIcons();
+    setTimeout(_renderLockIcons, 200);
+    setTimeout(_renderLockIcons, 500);
+    setTimeout(_renderLockIcons, 1000);
   });
 }
 
-/* ─── HOW-TO HELPERS ──────────────────────────────────────────── */
 function _howStep(num, iconSVG, title, desc) {
   return '<div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:16px">'+
     '<div style="width:32px;height:32px;border-radius:50%;background:var(--gold);color:#111;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">'+num+'</div>'+
@@ -203,7 +195,6 @@ function _levelRow(label, color, cost, reward) {
   '</div>';
 }
 
-/* ─── LOCK ICONS ──────────────────────────────────────────────── */
 function _renderLockIcons() {
   var svg   = document.getElementById('indonesia-map');
   var layer = document.getElementById('lock-icons-layer');
@@ -224,7 +215,7 @@ function _renderLockIcons() {
 
     var bb;
     try { bb = path.getBBox(); } catch(e) { return; }
-    if (!bb || bb.width===0 || bb.height===0) return; /* guard */
+    if (!bb || bb.width===0 || bb.height===0) return;
 
     var screenX = (bb.x + bb.width/2  - vb.x) * scaleX;
     var screenY = (bb.y + bb.height/2 - vb.y) * scaleY;
@@ -251,7 +242,6 @@ function _renderLockIcons() {
   });
 }
 
-/* ─── TOOLTIP ─────────────────────────────────────────────────── */
 var _tip = null;
 function _showTooltip(name, id, unlocked) {
   _hideTooltip();
@@ -273,7 +263,6 @@ function _hideTooltip() {
   document.removeEventListener('mousemove',_moveTip);
 }
 
-/* ─── MAP EVENTS ──────────────────────────────────────────────── */
 function initMapEvents() {
   var svg = document.getElementById('indonesia-map');
   if (!svg) return;
@@ -306,7 +295,6 @@ function initMapEvents() {
   });
 }
 
-/* ─── UNLOCK POPUP ────────────────────────────────────────────── */
 function showUnlockPopup(id, name) {
   var ud       = getUserData();
   var diff     = getDifficultyInfo(id);
@@ -351,21 +339,17 @@ function showUnlockPopup(id, name) {
   document.body.style.overflow = 'hidden';
 }
 
-/* ─── CLOSE UNLOCK OVERLAY ────────────────────────────────────── */
 function closeUnlockOverlay(e) {
-  /* FIX: gunakan currentTarget agar klik child elemen tetap ditangkap */
   if (e && e.type==='click' && e.currentTarget && e.currentTarget.id !== 'unlock-overlay') return;
   var overlay = document.getElementById('unlock-overlay');
   if (overlay) overlay.style.display = 'none';
   document.body.style.overflow = '';
 }
 
-/* ─── CONFIRM UNLOCK + ANIMASI ────────────────────────────────── */
 function confirmUnlock(id, name) {
   var success = unlockProvince(id);
   if (!success) { showToast('Kunci tidak cukup!','#e74c3c'); closeUnlockOverlay(); return; }
 
-  /* Update path class */
   var path = document.getElementById('path-'+id);
   if (path) {
     path.dataset.unlocked = '1';
@@ -373,7 +357,6 @@ function confirmUnlock(id, name) {
     path.classList.add('province-unlocked');
   }
 
-  /* Update counter + progress */
   var ud  = getUserData();
   var kv  = document.getElementById('map-key-val');
   if (kv) kv.textContent = ud.keys;
@@ -383,11 +366,9 @@ function confirmUnlock(id, name) {
 
   closeUnlockOverlay();
 
-  /* ── Animasi unlock burst ── */
   _playUnlockAnim(id, function() {
     setTimeout(_renderLockIcons, 50);
     showToast(''+name+' berhasil dibuka!','#2D6A4F');
-    /* FIX: reset state dulu sebelum buka popup */
     _resetMapState();
     if (path) {
       mapState.selectedId = id;
@@ -404,12 +385,10 @@ function _playUnlockAnim(id, onDone) {
   var fxLayer = document.getElementById('unlock-fx-layer');
   if (!svg||!path||!fxLayer) { if (onDone) onDone(); return; }
 
-  /* 1. Province path burst */
   path.classList.add('just-unlocked');
   path.style.fill = '#40916C';
   setTimeout(function() { path.style.fill = ''; }, 650);
 
-  /* 2. SVG ripple circles */
   var bb;
   try { bb = path.getBBox(); } catch(e) { bb = null; }
   if (bb && bb.width > 0) {
@@ -443,7 +422,6 @@ function _playUnlockAnim(id, onDone) {
       requestAnimationFrame(frame);
     });
 
-    /* 3. Shine flash */
     var shine = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
     shine.setAttribute('cx', cx);
     shine.setAttribute('cy', cy);
@@ -472,7 +450,6 @@ function _playUnlockAnim(id, onDone) {
   }, 620);
 }
 
-/* ─── TOGGLE HOW TO PLAY ──────────────────────────────────────── */
 function toggleHowToPlay() {
   var panel = document.getElementById('how-to-play-panel');
   if (!panel) return;
@@ -481,7 +458,6 @@ function toggleHowToPlay() {
   mapState.showingHow = !visible;
 }
 
-/* ─── REGION POPUP ────────────────────────────────────────────── */
 function showRegionPopup(id, name) {
   var islandKey = regionToIslandMap[id] || '';
   var region    = regionData[islandKey] || {};
