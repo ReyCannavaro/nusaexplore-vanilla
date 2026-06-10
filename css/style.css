@@ -560,3 +560,118 @@ footer { padding:32px 48px; border-top:1px solid var(--border); display:flex; al
   .games-header { padding:20px 16px 0; }
   #province-list { grid-template-columns:1fr !important; }
 }
+
+@media (max-width:768px) {
+
+  .hero-right { display:none; }
+  .hero { grid-template-columns:1fr; min-height:auto; padding:80px 20px 40px; }
+  .hero-desc { font-size:14px; max-width:100%; }
+  .hero-actions { gap:10px; }
+  .hero-actions .btn-gold,
+  .hero-actions .btn-outline { width:100%; text-align:center; padding:14px 20px; }
+  .hero-stats { gap:20px; justify-content:space-between; }
+  .stat-num { font-size:24px; }
+
+  .marquee-item { font-size:12px; padding:0 18px; }
+
+  .section { padding:48px 20px; }
+
+  .culture-modal { max-height:95vh; border-radius:16px 16px 0 0; }
+  .modal-hero-img { height:180px; }
+  .modal-body { padding:16px 18px 24px; }
+  .modal-meta { flex-direction:column; gap:10px; padding:12px; }
+  .modal-meta-divider { width:100%; height:1px; }
+  .modal-facts { gap:6px; }
+  .modal-fact-chip { font-size:11px; padding:4px 10px; }
+
+  .feat-card { padding:24px 20px; }
+  .feat-title { font-size:18px; }
+
+  .quote-section { padding:48px 20px; }
+  .cta-section { padding:60px 20px; }
+  .cta-title { font-size:clamp(28px,8vw,40px); }
+
+  footer { padding:24px 20px; gap:12px; }
+  .footer-links { flex-wrap:wrap; justify-content:center; gap:12px; }
+
+  .map-hero { padding-top:70px; }
+  .map-hero-header { padding:12px 16px 0; }
+  .map-header-top { flex-direction:column; align-items:flex-start; gap:8px; }
+  .map-header-right { width:100%; gap:6px; }
+  .map-header-right > div,
+  .map-header-right > button { font-size:12px; padding:6px 12px; }
+  .map-hero-inner { padding:8px 8px 16px; }
+
+  .detail-hero { min-height:40vh; padding:16px; }
+  .detail-title { font-size:clamp(28px,7vw,44px); }
+  .detail-subtitle { font-size:14px; }
+  .detail-container { padding:0 16px 32px; }
+  .detail-section { padding:24px 0; }
+  .quick-info-grid { grid-template-columns:1fr 1fr; gap:10px; padding:16px 0; }
+  .quick-info-card { padding:14px 12px; gap:10px; }
+  .quick-info-icon { width:36px; height:36px; font-size:16px; }
+  .quick-info-card p { font-size:13px; }
+  .media-grid { grid-template-columns:1fr 1fr; gap:10px; }
+  .media-overlay { opacity:1; }
+  .media-overlay h3 { font-size:13px; }
+  .media-overlay p { font-size:11px; }
+  .facts-grid { grid-template-columns:1fr; gap:12px; }
+  .detail-cta-section { padding:24px 0; }
+  .cta-btn-row { flex-direction:column; align-items:stretch; gap:10px; }
+  .cta-btn-row .btn-play-game,
+  .cta-btn-row .claim-reward-btn { width:100%; justify-content:center; }
+
+  .games-page { padding:70px 0 0; }
+  .games-header { padding:20px 16px 0; margin-bottom:24px; }
+  .games-title { font-size:clamp(28px,7vw,40px); }
+  .gsc-top { padding:24px 24px 16px; }
+  .gsc-body { padding:0 24px 28px; }
+  .gsc-title { font-size:22px; }
+  .gsc-desc { font-size:13px; }
+
+  .quiz-card { padding:24px 20px; }
+  .quiz-result { padding:32px 20px; }
+  .result-score { font-size:56px; }
+
+  .puzzle-header { flex-wrap:wrap; gap:10px; }
+  .puzzle-result { padding:32px 20px; }
+  .puzzle-all-done { padding:32px 20px; }
+  .puzzle-all-done h2 { font-size:28px; }
+
+  .region-popup { padding:20px 16px; }
+  .popup-section-title { font-size:20px; }
+  .popup-cards { gap:6px; }
+  .popup-card { padding:10px 6px; }
+  .popup-card-title { font-size:10px; }
+  .popup-card-sub { font-size:9px; }
+  .popup-btn-row { gap:8px; }
+
+  #how-to-play-panel { width:100% !important; border-left:none !important; border-top:1px solid var(--border); top:auto !important; bottom:0; height:auto !important; max-height:80vh; border-radius:20px 20px 0 0; }
+}
+
+@media (max-width:480px) {
+  .map-header-right { flex-direction:column; align-items:flex-start; }
+  .map-header-right > * { width:100%; box-sizing:border-box; }
+
+  .media-grid { grid-template-columns:1fr; }
+  .quick-info-grid { grid-template-columns:1fr 1fr; }
+
+  .quiz-opt { padding:13px 14px; font-size:13px; }
+
+  .result-actions { flex-direction:column; }
+  .result-btn { width:100%; text-align:center; }
+
+  .gsc-pills { gap:6px; }
+  .gsc-pill { font-size:10px; padding:3px 10px; }
+  .gsc-cta { width:100%; text-align:center; justify-content:center; }
+
+  .region-popup-overlay { padding:0; align-items:flex-end; }
+  .region-popup { border-radius:20px 20px 0 0; max-height:92vh; }
+  .popup-cards { grid-template-columns:repeat(3,1fr); }
+
+  .culture-modal-overlay { padding:0; align-items:flex-end; }
+  .culture-modal { border-radius:20px 20px 0 0; max-height:95vh; }
+
+  #unlock-overlay { padding:0 !important; align-items:flex-end !important; }
+  #unlock-popup { border-radius:20px 20px 0 0 !important; max-width:100% !important; }
+}
