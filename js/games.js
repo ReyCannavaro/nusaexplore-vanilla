@@ -167,7 +167,7 @@ function renderQuiz(slug) {
 
   setPage(
     navbarHTML('/games') +
-    '<div style="min-height:100vh;padding:80px 0 60px;background:var(--bg)">' +
+    '<div style="min-height:100vh;padding:120px 0 60px;background:var(--bg)">' +
       '<div style="max-width:700px;margin:0 auto;padding:0 24px">' +
         '<div id="quiz-header"></div>' +
         '<div id="quiz-body"></div>' +
@@ -351,7 +351,7 @@ function renderPuzzle(slug) {
 
   setPage(
     navbarHTML('/games') +
-    '<div style="min-height:100vh;padding:80px 0 60px;background:var(--bg)">' +
+    '<div style="min-height:100vh;padding:120px 0 60px;background:var(--bg)">' +
       '<div style="max-width:600px;margin:0 auto;padding:0 20px">' +
         '<div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:28px">' +
           '<button class="quiz-back" onclick="navigate(\'/games\')" style="display:inline-flex;align-items:center;gap:6px;flex-shrink:0;margin-top:2px">' +
