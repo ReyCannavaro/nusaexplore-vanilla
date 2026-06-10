@@ -3,7 +3,7 @@ function renderHome() {
 
   var marqueeItems = MARQUEE_ITEMS.concat(MARQUEE_ITEMS);
   var marqueeHTML = marqueeItems.map(function(item) {
-    return '<span class="marquee-item">' + item + '<span class="marquee-dot"></span></span>';
+    return '<span class="marquee-item" style="color: var(--gold);">' + item + '<span class="marquee-dot"></span></span>';
   }).join('');
 
   var cultureCardsHTML = culturesData.map(function(c) {

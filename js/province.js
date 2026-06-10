@@ -53,7 +53,7 @@ function renderProvince(slug) {
     }
 
     var cultureSection  = mediaSection('Budaya &amp; Tradisi','Warisan Budaya',province.culture,  function(c){return c.image;},function(c){return c.title;},function(c){return c.description;});
-    var tourismSection  = mediaSection('Wisata','Destinasi Unggulan',province.tourism,function(t){return t.image;},function(t){return t.name;},function(t){return '📍 '+t.location+' — '+t.description;});
+    var tourismSection  = mediaSection('Wisata','Destinasi Unggulan',province.tourism,function(t){return t.image;},function(t){return t.name;},function(t){return '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-2px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'+t.location+' — '+t.description;});
     var culinarySection = mediaSection('Kuliner','Cita Rasa Khas',province.culinary,function(c){return c.image;},function(c){return c.name;},function(c){return c.description;});
 
     /* Facts */
@@ -80,7 +80,7 @@ function renderProvince(slug) {
         'Klaim '+diff.keyReward+' Kunci'+
       '</button>';
     } else if (claimed) {
-      claimBtn = '<button class="claim-reward-btn claim-reward-disabled" disabled>✓ Reward Diklaim</button>';
+      claimBtn = '<button class="claim-reward-btn claim-reward-disabled" disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:-2px"><polyline points="20 6 9 17 4 12"/></svg>Reward Diklaim</button>';
     } else {
       claimBtn = '<button class="claim-reward-btn claim-reward-disabled" disabled>Klaim Reward</button>';
     }

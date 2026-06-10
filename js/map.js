@@ -111,9 +111,9 @@ function renderMap() {
           '</div>'+
           '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'+
             '<span style="font-size:11px;color:var(--text3)">Level:</span>'+
-            '<span style="font-size:11px;font-weight:700;color:#40916C;background:rgba(64,145,108,.12);padding:3px 10px;border-radius:20px">Mudah — 1🗝</span>'+
-            '<span style="font-size:11px;font-weight:700;color:#C9A84C;background:rgba(201,168,76,.12);padding:3px 10px;border-radius:20px">Sedang — 2🗝</span>'+
-            '<span style="font-size:11px;font-weight:700;color:#e74c3c;background:rgba(231,76,60,.12);padding:3px 10px;border-radius:20px">Susah — 3🗝</span>'+
+            '<span style="font-size:11px;font-weight:700;color:#40916C;background:rgba(64,145,108,.12);padding:3px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:3px">Mudah — 1'+_keySVG(12)+'</span>'+
+            '<span style="font-size:11px;font-weight:700;color:#C9A84C;background:rgba(201,168,76,.12);padding:3px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:3px">Sedang — 2'+_keySVG(12)+'</span>'+
+            '<span style="font-size:11px;font-weight:700;color:#e74c3c;background:rgba(231,76,60,.12);padding:3px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:3px">Susah — 3'+_keySVG(12)+'</span>'+
           '</div>'+
         '</div>'+
 
@@ -154,9 +154,9 @@ function renderMap() {
         _howStep('4','<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>','Klaim Reward','Dapat kunci baru untuk buka lebih banyak!')+
         '<div style="background:var(--bg3);border-radius:12px;padding:16px;margin-top:8px">'+
           '<div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--text3);margin-bottom:10px">LEVEL PROVINSI</div>'+
-          _levelRow('Mudah','#40916C','1🗝 untuk buka','+2🗝 reward')+
-          _levelRow('Sedang','#C9A84C','2🗝 untuk buka','+3🗝 reward')+
-          _levelRow('Susah','#e74c3c','3🗝 untuk buka','+5🗝 reward')+
+          _levelRow('Mudah','#40916C','1'+_keySVG(12)+' untuk buka','+2'+_keySVG(12)+' reward')+
+          _levelRow('Sedang','#C9A84C','2'+_keySVG(12)+' untuk buka','+3'+_keySVG(12)+' reward')+
+          _levelRow('Susah','#e74c3c','3'+_keySVG(12)+' untuk buka','+5'+_keySVG(12)+' reward')+
         '</div>'+
       '</div>'+
 
@@ -198,8 +198,8 @@ function _howStep(num, iconSVG, title, desc) {
 function _levelRow(label, color, cost, reward) {
   return '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">'+
     '<span style="font-size:12px;font-weight:700;color:'+color+';background:'+color+'18;padding:2px 10px;border-radius:20px">'+label+'</span>'+
-    '<span style="font-size:11px;color:var(--text2)">'+cost+'</span>'+
-    '<span style="font-size:11px;color:#40916C;font-weight:700">'+reward+'</span>'+
+    '<span style="font-size:11px;color:var(--text2);display:inline-flex;align-items:center;gap:3px">'+cost+'</span>'+
+    '<span style="font-size:11px;color:#40916C;font-weight:700;display:inline-flex;align-items:center;gap:3px">'+reward+'</span>'+
   '</div>';
 }
 
@@ -259,7 +259,7 @@ function _showTooltip(name, id, unlocked) {
   _tip = document.createElement('div');
   _tip.style.cssText = 'position:fixed;pointer-events:none;z-index:250;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:8px 14px;border-radius:10px;font-size:13px;font-weight:600;font-family:Plus Jakarta Sans,sans-serif;box-shadow:0 4px 20px rgba(0,0,0,.3);white-space:nowrap;display:flex;align-items:center;gap:6px';
   var icon = unlocked
-    ? '<span style="color:#40916C">✓</span>'
+    ? '<span style="color:#40916C;display:inline-flex;align-items:center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>'
     : '<span style="color:'+diff.color+'">' + _lockSVG(12) + '</span>';
   _tip.innerHTML = icon+name+(unlocked?'':' <span style="font-size:11px;color:'+diff.color+'">'+diff.label+'</span>');
   document.body.appendChild(_tip);
@@ -335,7 +335,7 @@ function showUnlockPopup(id, name) {
       '<span style="font-weight:700;color:'+(canAfford?'var(--text)':'#e74c3c')+'">'+ud.keys+' Kunci</span>'+
     '</div>'+
     (!canAfford
-      ? '<div style="background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.3);border-radius:10px;padding:12px;margin-bottom:16px;font-size:12px;color:#e74c3c;text-align:center;line-height:1.5">⚠️ Kunci tidak cukup!<br><span style="color:var(--text2)">Selesaikan quiz & puzzle provinsi lain untuk mendapatkan kunci tambahan.</span></div>'
+      ? '<div style="background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.3);border-radius:10px;padding:12px;margin-bottom:16px;font-size:12px;color:#e74c3c;text-align:center;line-height:1.5">Kunci tidak cukup!<br><span style="color:var(--text2)">Selesaikan quiz & puzzle provinsi lain untuk mendapatkan kunci tambahan.</span></div>'
       : '')+
     '<div style="display:flex;gap:10px">'+
       (canAfford
@@ -386,7 +386,7 @@ function confirmUnlock(id, name) {
   /* ── Animasi unlock burst ── */
   _playUnlockAnim(id, function() {
     setTimeout(_renderLockIcons, 50);
-    showToast('🎉 '+name+' berhasil dibuka!','#2D6A4F');
+    showToast(''+name+' berhasil dibuka!','#2D6A4F');
     /* FIX: reset state dulu sebelum buka popup */
     _resetMapState();
     if (path) {
@@ -546,7 +546,8 @@ function _popupCard(icon, label, val) {
   '</div>';
 }
 function _gameStatus(done, label) {
-  return '<div style="display:flex;align-items:center;gap:5px;font-size:12px;padding:4px 10px;border-radius:20px;background:'+(done?'rgba(64,145,108,.15)':'var(--bg3)')+';border:1px solid '+(done?'#40916C':'var(--border)')+';color:'+(done?'#40916C':'var(--text3)')+'">'+(done?'✓':'○')+' '+label+'</div>';
+  var iconSvg = done ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>';
+  return '<div style="display:flex;align-items:center;gap:5px;font-size:12px;padding:4px 10px;border-radius:20px;background:'+(done?'rgba(64,145,108,.15)':'var(--bg3)')+';border:1px solid '+(done?'#40916C':'var(--border)')+';color:'+(done?'#40916C':'var(--text3)')+'">'+iconSvg+' '+label+'</div>';
 }
 
 function closeMapPopup() { _resetMapState(); }
