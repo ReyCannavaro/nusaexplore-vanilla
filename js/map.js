@@ -166,13 +166,12 @@ function renderMap() {
 
   initNavbar();
   _resetMapState();
-  requestAnimationFrame(function() {
+    setTimeout(function() {
     initMapEvents();
     _renderLockIcons();
     setTimeout(_renderLockIcons, 200);
     setTimeout(_renderLockIcons, 500);
-    setTimeout(_renderLockIcons, 1000);
-  });
+  }, 250);
 }
 
 function _howStep(num, iconSVG, title, desc) {
