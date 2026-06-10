@@ -1,4 +1,3 @@
-/* ─── ROUTING (hash-based agar tidak 404 saat refresh) ───────── */
 function _getHash() {
   return location.hash.replace(/^#/, '') || '/';
 }
@@ -21,7 +20,6 @@ window.addEventListener('load', function() {
   render(_getHash());
 });
 
-/* ─── THEME ───────────────────────────────────────────────────── */
 function applyTheme(t) {
   document.documentElement.setAttribute('data-theme', t);
   saveTheme(t);
@@ -37,7 +35,6 @@ function _syncThemeBtn() {
   if (btn) btn.innerHTML = icon;
 }
 
-/* ─── NAVBAR ──────────────────────────────────────────────────── */
 function navbarHTML(active) {
   active = active || '';
   var links = [{path:'/',label:'Beranda'},{path:'/map',label:'Peta'},{path:'/games',label:'Games'}];
@@ -94,7 +91,6 @@ function initNavbar() {
   });
 }
 
-/* ─── REVEAL / FOOTER / TOAST / PAGE ─────────────────────────── */
 function initReveal() {
   var items = document.querySelectorAll('.reveal');
   if (!items.length) return;
@@ -127,7 +123,21 @@ function showToast(msg, color) {
 function setPage(html) {
   var app = document.getElementById('app');
   if (!app) return;
-  app.innerHTML = html;
-  window.scrollTo(0,0);
-  setTimeout(initReveal, 80);
+  app.style.transition = 'opacity .18s ease, transform .18s ease';
+  app.style.opacity    = '0';
+  app.style.transform  = 'translateY(10px)';
+
+  setTimeout(function() {
+    app.innerHTML = html;
+    window.scrollTo(0, 0);
+    app.style.transition = 'none';
+    app.style.opacity    = '0';
+    app.style.transform  = 'translateY(18px)';
+    void app.offsetHeight;
+    app.style.transition = 'opacity .45s cubic-bezier(.16,1,.3,1), transform .45s cubic-bezier(.16,1,.3,1)';
+    app.style.opacity    = '1';
+    app.style.transform  = 'translateY(0)';
+
+    setTimeout(initReveal, 80);
+  }, 160);
 }
