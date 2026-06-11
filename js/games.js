@@ -177,8 +177,44 @@ function renderQuiz(slug) {
   );
   initNavbar();
   _renderQuizHeader();
-  _renderQuizQuestion();
-  _startQuizTimer();
+  _showQuizCountdown();
+}
+
+function _showQuizCountdown() {
+  var body = document.getElementById('quiz-body');
+  if (!body) { _renderQuizQuestion(); _startQuizTimer(); return; }
+
+  var count = 3;
+  body.innerHTML =
+    '<div style="text-align:center;padding:60px 20px">' +
+      '<p style="font-size:13px;font-weight:600;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px">Quiz dimulai dalam</p>' +
+      '<div id="countdown-num" style="font-size:96px;font-weight:900;color:var(--gold);line-height:1;' +
+        'transition:transform .25s,opacity .25s;">' + count + '</div>' +
+      '<p style="color:var(--text2);margin-top:16px;font-size:14px">Bersiap menjawab soal&hellip;</p>' +
+    '</div>';
+
+  var cd = setInterval(function() {
+    count--;
+    var el = document.getElementById('countdown-num');
+    if (!el) { clearInterval(cd); return; }
+    if (count > 0) {
+      el.style.opacity = '0';
+      el.style.transform = 'scale(1.3)';
+      setTimeout(function() {
+        var el2 = document.getElementById('countdown-num');
+        if (!el2) return;
+        el2.textContent = count;
+        el2.style.opacity = '1';
+        el2.style.transform = 'scale(1)';
+      }, 150);
+    } else {
+      clearInterval(cd);
+      requestAnimationFrame(function() {
+        _renderQuizQuestion();
+        setTimeout(_startQuizTimer, 80);
+      });
+    }
+  }, 1000);
 }
 
 function _slugToName(slug) {
