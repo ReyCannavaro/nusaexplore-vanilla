@@ -408,6 +408,13 @@ function renderPuzzle(slug) {
   _startPuzzleRound();
 }
 
+function _preloadImage(src, callback) {
+  var img = new Image();
+  img.onload  = function() { callback(true); };
+  img.onerror = function() { callback(false); };
+  img.src = src;
+}
+
 function _startPuzzleRound() {
   if (_pz.round >= _pz.images.length) { _showPuzzleAllDone(); return; }
   _pz.moves    = 0;
@@ -428,7 +435,22 @@ function _startPuzzleRound() {
   } while (_puzzleIsSolved(pieces) && tries < 30);
 
   _pz.pieces = pieces;
-  _renderPuzzleBoard();
+
+  // Tampilkan loading spinner dulu, preload gambar, baru render board
+  var body = document.getElementById('puzzle-body');
+  if (body) {
+    body.innerHTML =
+      '<div style="text-align:center;padding:80px 20px">' +
+        '<div style="display:inline-block;width:44px;height:44px;border:4px solid var(--border2);' +
+          'border-top-color:var(--gold);border-radius:50%;animation:pz-spin 0.7s linear infinite"></div>' +
+        '<p style="color:var(--text3);margin-top:16px;font-size:13px">Memuat gambar puzzle&hellip;</p>' +
+      '</div>' +
+      '<style>@keyframes pz-spin{to{transform:rotate(360deg)}}</style>';
+  }
+
+  _preloadImage(_pz.images[_pz.round], function() {
+    _renderPuzzleBoard();
+  });
 }
 
 function _puzzleIsSolved(pieces) {
@@ -530,11 +552,11 @@ function _renderPuzzleBoard() {
     '</div>';
 
   requestAnimationFrame(function() {
-    _applyPuzzleBackgrounds();
+    _applyPuzzleBackgrounds(0);
   });
 }
 
-function _applyPuzzleBackgrounds() {
+function _applyPuzzleBackgrounds(attempt) {
   var grid = document.getElementById('pz-grid');
   if (!grid) return;
 
@@ -545,8 +567,13 @@ function _applyPuzzleBackgrounds() {
   var gridRect  = grid.getBoundingClientRect();
   var gridW     = gridRect.width;
 
-  var pieceSize = Math.floor((gridW - 4 - GAP * (GRID - 1)) / GRID);
+  // Jika grid belum selesai di-layout browser (width masih 0), coba lagi
+  if (gridW === 0 && attempt < 10) {
+    setTimeout(function() { _applyPuzzleBackgrounds(attempt + 1); }, 30);
+    return;
+  }
 
+  var pieceSize = Math.floor((gridW - 4 - GAP * (GRID - 1)) / GRID);
   var totalPx   = pieceSize * GRID;
 
   var pieces = grid.querySelectorAll('[id^="pz-piece-"]');
