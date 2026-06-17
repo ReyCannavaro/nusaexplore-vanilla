@@ -120,7 +120,7 @@ function showToast(msg, color) {
   setTimeout(function() { if (el.parentNode) el.remove(); }, 3500);
 }
 
-function setPage(html) {
+function setPage(html, onReady) {
   var app = document.getElementById('app');
   if (!app) return;
   app.style.transition = 'opacity .18s ease, transform .18s ease';
@@ -139,5 +139,6 @@ function setPage(html) {
     app.style.transform  = 'translateY(0)';
 
     setTimeout(initReveal, 80);
+    if (typeof onReady === 'function') onReady();
   }, 160);
 }

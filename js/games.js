@@ -106,10 +106,9 @@ function renderGames() {
       '</div>' +
 
     '</div>' +
-    footerHTML()
+    footerHTML(),
+    function() { initNavbar(); }
   );
-
-  initNavbar();
 }
 
 var _currentGameType = 'quiz';
@@ -173,11 +172,13 @@ function renderQuiz(slug) {
         '<div id="quiz-body"></div>' +
       '</div>' +
     '</div>' +
-    footerHTML()
+    footerHTML(),
+    function() {
+      initNavbar();
+      _renderQuizHeader();
+      _showQuizCountdown();
+    }
   );
-  initNavbar();
-  _renderQuizHeader();
-  _showQuizCountdown();
 }
 
 function _showQuizCountdown() {
@@ -401,11 +402,12 @@ function renderPuzzle(slug) {
         '<div id="puzzle-body"></div>' +
       '</div>' +
     '</div>' +
-    footerHTML()
+    footerHTML(),
+    function() {
+      initNavbar();
+      _startPuzzleRound();
+    }
   );
-
-  initNavbar();
-  _startPuzzleRound();
 }
 
 function _preloadImage(src, callback) {
@@ -436,7 +438,6 @@ function _startPuzzleRound() {
 
   _pz.pieces = pieces;
 
-  // Tampilkan loading spinner dulu, preload gambar, baru render board
   var body = document.getElementById('puzzle-body');
   if (body) {
     body.innerHTML =
@@ -479,6 +480,8 @@ function _renderPuzzleBoard() {
       '</div>'
     : '';
 
+  var bgSizePct = (GRID * 100) + '%';
+
   var piecesHTML = pieces.map(function(correctIdx, pos) {
     var row   = Math.floor(correctIdx / GRID);
     var col   = correctIdx % GRID;
@@ -488,6 +491,9 @@ function _renderPuzzleBoard() {
     var outline = isSel
       ? '3px solid var(--gold)'
       : (isOk ? '2px solid rgba(64,145,108,.8)' : '2px solid transparent');
+
+    var bgXpct = GRID === 1 ? '0%' : (col / (GRID - 1) * 100) + '%';
+    var bgYpct = GRID === 1 ? '0%' : (row / (GRID - 1) * 100) + '%';
 
     return '<div ' +
       'id="pz-piece-' + pos + '" ' +
@@ -500,6 +506,10 @@ function _renderPuzzleBoard() {
         'background-image:url(\'' + imgSrc + '\');' +
         'background-color:var(--bg3);' +
         'background-repeat:no-repeat;' +
+        'background-size:' + bgSizePct + ' ' + bgSizePct + ';' +
+        'background-position:' + bgXpct + ' ' + bgYpct + ';' +
+        'width:100%;' +
+        'height:100%;' +
         'outline:' + outline + ';' +
         'outline-offset:-2px;' +
         'border-radius:2px;' +
@@ -518,11 +528,13 @@ function _renderPuzzleBoard() {
     '<div id="pz-grid" style="' +
       'display:grid;' +
       'grid-template-columns:repeat(' + GRID + ',1fr);' +
+      'grid-template-rows:repeat(' + GRID + ',1fr);' +
       'gap:3px;' +
       'border:2px solid var(--border);' +
       'border-radius:12px;' +
       'overflow:hidden;' +
       'background:var(--bg3);' +
+      'width:100%;' +
       'max-width:520px;' +
       'margin:0 auto;' +
       'aspect-ratio:1;' +
@@ -551,44 +563,6 @@ function _renderPuzzleBoard() {
       '<p style="text-align:center;font-size:12px;color:var(--text3);margin:5px 0 0">' + pct + '% kepingan benar</p>' +
     '</div>';
 
-  requestAnimationFrame(function() {
-    _applyPuzzleBackgrounds(0);
-  });
-}
-
-function _applyPuzzleBackgrounds(attempt) {
-  var grid = document.getElementById('pz-grid');
-  if (!grid) return;
-
-  var GRID      = _pz.GRID;
-  var imgSrc    = _pz.images[_pz.round];
-  var GAP       = 3;
-
-  var gridRect  = grid.getBoundingClientRect();
-  var gridW     = gridRect.width;
-
-  // Jika grid belum selesai di-layout browser (width masih 0), coba lagi
-  if (gridW === 0 && attempt < 10) {
-    setTimeout(function() { _applyPuzzleBackgrounds(attempt + 1); }, 30);
-    return;
-  }
-
-  var pieceSize = Math.floor((gridW - 4 - GAP * (GRID - 1)) / GRID);
-  var totalPx   = pieceSize * GRID;
-
-  var pieces = grid.querySelectorAll('[id^="pz-piece-"]');
-  pieces.forEach(function(el) {
-    var row = parseInt(el.dataset.row, 10);
-    var col = parseInt(el.dataset.col, 10);
-
-    var bgX = -(col * pieceSize);
-    var bgY = -(row * pieceSize);
-
-    el.style.width              = pieceSize + 'px';
-    el.style.height             = pieceSize + 'px';
-    el.style.backgroundSize     = totalPx + 'px ' + totalPx + 'px';
-    el.style.backgroundPosition = bgX + 'px ' + bgY + 'px';
-  });
 }
 
 function clickPuzzlePiece(pos) {
