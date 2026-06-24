@@ -43,6 +43,7 @@
 - [Kustomisasi & Pengembangan Lanjutan](#-kustomisasi--pengembangan-lanjutan)
 - [Referensi Fungsi](#-referensi-fungsi-lengkap)
 - [FAQ & Troubleshooting](#-faq--troubleshooting)
+- [Tim Pengembang](#-tim-pengembang)
 - [Kontribusi](#-kontribusi)
 
 ---
@@ -1414,6 +1415,21 @@ _quiz.timeLeft = 60;  // Sesuaikan
 **Penyebab:** Mungkin terjadi jika slug provinsi tidak cocok dengan `quizData.js`.
 
 **Solusi:** Pastikan slug yang dipass ke `renderQuiz()` cocok dengan `province` di `quizData.js`.
+
+---
+
+## 👥 Tim Pengembang
+
+NusaExplore dikembangkan oleh tim kecil yang berfokus pada pengalaman belajar budaya Indonesia yang interaktif, ringan, dan menyenangkan.
+
+<div align="center">
+
+| Foto | Nama | Peran |
+|------|------|-------|
+| <img src="images/assets/rey.jpg" alt="Reyjuno Al Cannavaro" width="140" style="border-radius: 50%;"/> | **Reyjuno Al Cannavaro** | Frontend Engineer |
+| <img src="images/assets/bayu.jpg" alt="Abbiyu Putra Praditama" width="140" style="border-radius: 50%;"/> | **Abbiyu Putra Praditama** | UI/UX Designer |
+
+</div>
 
 ---
 
